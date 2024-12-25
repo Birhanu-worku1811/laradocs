@@ -1,0 +1,26 @@
+{
+    "name": "birhanu/laradocs",
+    "description": "Laravel API documentation generator",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Birhanu\\Laradocs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "birhanu",
+            "email": "birhanuwork2011@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Birhanu\\Laradocs\\LaradocsServiceProvider"
+            ]
+        }
+    }
+}
