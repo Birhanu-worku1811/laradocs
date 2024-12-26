@@ -61,10 +61,6 @@ The configuration file `config/laradocs.php` allows you to customize the behavio
 
 You can customize the HTML output by editing the Blade view file located at `resources/views/vendor/laradocs/custom-ui.blade.php`.
 
-## Screenshots
-
-*Placeholder for screenshots*
-
 ## Testing
 
 To run the tests, use the following command:
