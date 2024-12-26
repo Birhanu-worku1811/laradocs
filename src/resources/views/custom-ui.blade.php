@@ -23,11 +23,11 @@
         .route {
             margin-bottom: 20px;
         }
-        .route-method {
-            font-weight: bold;
-        }
         .route-uri {
             color: #007BFF;
+        }
+        .route-parameters, .route-description, .route-return {
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -39,9 +39,23 @@
     <h3>Routes</h3>
     @foreach ($docs['routes'] as $route)
         <div class="route">
-            <div class="route-method">{{ $route['method'] }}</div>
             <div class="route-uri">{{ $route['uri'] }}</div>
-            <div class="route-action">{{ $route['action'] }}</div>
+            <div class="route-parameters">
+                <strong>Parameters:</strong>
+                <ul>
+                    @foreach ($route['parameters'] as $param => $description)
+                        <li>{{ $param }}: {{ $description }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="route-description">
+                <strong>Description:</strong>
+                <p>{{ $route['description'] }}</p>
+            </div>
+            <div class="route-return">
+                <strong>Return:</strong>
+                <p>{{ $route['return'] }}</p>
+            </div>
         </div>
     @endforeach
 </div>

@@ -67,11 +67,34 @@ class LaraDocs
         $routes = [];
         foreach (Route::getRoutes() as $route) {
             $routes[] = [
-                'method' => implode('|', $route->methods()),
                 'uri' => $route->uri(),
-                'action' => $route->getActionName(),
+                'methods' => implode('|', $route->methods()),
+                'parameters' => $this->getRouteParameters($route),
+                'description' => $this->getRouteDescription($route),
+                'return' => $this->getRouteReturn($route),
             ];
         }
         return $routes;
+    }
+
+    protected function getRouteParameters($route)
+    {
+        // Example implementation, you may need to customize this based on your app
+        return [
+            'id' => 'The ID of the resource',
+            'name' => 'The name of the resource',
+        ];
+    }
+
+    protected function getRouteDescription($route)
+    {
+        // Example implementation, you may need to customize this based on your app
+        return 'This route does something important.';
+    }
+
+    protected function getRouteReturn($route)
+    {
+        // Example implementation, you may need to customize this based on your app
+        return 'Returns a JSON object with the resource details.';
     }
 }
