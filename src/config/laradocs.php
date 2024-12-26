@@ -6,4 +6,5 @@ return [
     'default_format' => 'json', // Or 'html'
     'output_format' => 'json', // Output format: json or yaml
     'output_path' => storage_path('app/laradocs'), // Path to save the generated docs
+    'html_output' => true, // Enable HTML output
 ];

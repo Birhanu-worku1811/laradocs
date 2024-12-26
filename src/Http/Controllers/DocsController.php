@@ -3,7 +3,7 @@
 namespace Birhanu\Laradocs\Http\Controllers;
 
 use Birhanu\Laradocs\LaraDocs;
-use Illuminate\Routing\Controller; // Import the base Controller class
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Response;
 
 class DocsController extends Controller
@@ -16,19 +16,36 @@ class DocsController extends Controller
     }
 
     /**
-     * Display the generated API documentation.
+     * Display the generated HTML API documentation.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showHtmlDocs()
     {
         $this->laraDocs->generate();
 
-        $docsPath = storage_path('app/laradocs/api-docs.' . config('laradocs.output_format'));
-        if (file_exists($docsPath)) {
-            return response()->file($docsPath);
+        $htmlDocsPath = storage_path('app/laradocs/api-docs.html');
+        if (file_exists($htmlDocsPath)) {
+            return response()->file($htmlDocsPath);
         }
 
-        return response()->json(['message' => 'Documentation not found.'], 404);
+        return response()->json(['message' => 'HTML documentation not found.'], 404);
+    }
+
+    /**
+     * Display the generated JSON API documentation.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showJsonDocs()
+    {
+        $this->laraDocs->generate();
+
+        $jsonDocsPath = storage_path('app/laradocs/api-docs.json');
+        if (file_exists($jsonDocsPath)) {
+            return response()->file($jsonDocsPath);
+        }
+
+        return response()->json(['message' => 'JSON documentation not found.'], 404);
     }
 }
