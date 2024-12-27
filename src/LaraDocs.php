@@ -3,6 +3,8 @@
 namespace Birhanu\Laradocs;
 
 use Illuminate\Support\Facades\Route;
+use ReflectionClass;
+use ReflectionMethod;
 
 class LaraDocs
 {
@@ -17,14 +19,8 @@ class LaraDocs
         $this->htmlOutput = config('laradocs.html_output', false);
     }
 
-    /**
-     * Generate the API documentation
-     *
-     * @return void
-     */
     public function generate()
     {
-        // Ensure the output directory exists
         if (!is_dir($this->outputPath)) {
             mkdir($this->outputPath, 0755, true);
         }
@@ -45,23 +41,12 @@ class LaraDocs
         }
     }
 
-    /**
-     * Generate the HTML documentation
-     *
-     * @param array $docs
-     * @return void
-     */
     protected function generateHtml(array $docs)
     {
         $htmlContent = view('laradocs::custom-ui', ['docs' => $docs])->render();
         file_put_contents($this->outputPath . "/api-docs.html", $htmlContent);
     }
 
-    /**
-     * Get all routes in the Laravel app
-     *
-     * @return array
-     */
     protected function getRoutes()
     {
         $routes = [];
@@ -79,22 +64,71 @@ class LaraDocs
 
     protected function getRouteParameters($route)
     {
-        // Example implementation, you may need to customize this based on your app
-        return [
-            'id' => 'The ID of the resource',
-            'name' => 'The name of the resource',
-        ];
+        $action = $route->getActionName();
+        if (strpos($action, '@') !== false) {
+            list($controller, $method) = explode('@', $action);
+            $reflection = new ReflectionMethod($controller, $method);
+            $docComment = $reflection->getDocComment();
+            return $this->parseDocCommentForParameters($docComment);
+        }
+        return [];
     }
 
     protected function getRouteDescription($route)
     {
-        // Example implementation, you may need to customize this based on your app
-        return 'This route does something important.';
+        $action = $route->getActionName();
+        if (strpos($action, '@') !== false) {
+            list($controller, $method) = explode('@', $action);
+            $reflection = new ReflectionMethod($controller, $method);
+            $docComment = $reflection->getDocComment();
+            return $this->parseDocCommentForDescription($docComment);
+        }
+        return 'No description available.';
     }
 
     protected function getRouteReturn($route)
     {
-        // Example implementation, you may need to customize this based on your app
-        return 'Returns a JSON object with the resource details.';
+        $action = $route->getActionName();
+        if (strpos($action, '@') !== false) {
+            list($controller, $method) = explode('@', $action);
+            $reflection = new ReflectionMethod($controller, $method);
+            $docComment = $reflection->getDocComment();
+            return $this->parseDocCommentForReturn($docComment);
+        }
+        return 'No return value specified.';
+    }
+
+    protected function parseDocCommentForParameters($docComment)
+    {
+        $parameters = [];
+        if ($docComment) {
+            preg_match_all('/@param\s+([^\s]+)\s+\$([^\s]+)\s+(.*)/', $docComment, $matches, PREG_SET_ORDER);
+            foreach ($matches as $match) {
+                $parameters[$match[2]] = $match[3];
+            }
+        }
+        return $parameters;
+    }
+
+    protected function parseDocCommentForDescription($docComment)
+    {
+        if ($docComment) {
+            preg_match('/\*\s+(.*)/', $docComment, $match);
+            if (isset($match[1])) {
+                return $match[1];
+            }
+        }
+        return 'No description available.';
+    }
+
+    protected function parseDocCommentForReturn($docComment)
+    {
+        if ($docComment) {
+            preg_match('/@return\s+([^\s]+)\s+(.*)/', $docComment, $match);
+            if (isset($match[2])) {
+                return $match[2];
+            }
+        }
+        return 'No return value specified.';
     }
 }
