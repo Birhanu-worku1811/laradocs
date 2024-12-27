@@ -45,14 +45,7 @@ The configuration file `config/laradocs.php` allows you to customize the behavio
 - `html_output`: Enable or disable HTML output.
 
 ## Usage
-
-1. **Generate the API documentation:**
-
-    ```bash
-    php artisan laradocs:generate
-    ```
-
-2. **Access the documentation:**
+**Access the documentation:**
 
     - JSON format: `http://your-app-url/api-docs/json`
     - HTML format: `http://your-app-url/api-docs`
