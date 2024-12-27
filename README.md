@@ -1,4 +1,4 @@
-# LaraDocs
+# LaraDocs # [Published](https://packagist.org/packages/birhanu/laradocs)
 
 LaraDocs is a Laravel package that generates API documentation for your Laravel application. It provides both JSON and HTML formats for the documentation, making it easy to integrate and use.
 
