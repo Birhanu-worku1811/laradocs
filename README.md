@@ -1,4 +1,4 @@
-# LaraDocs # [Published](https://packagist.org/packages/birhanu/laradocs)
+# LaraDocs | [View The Published Package](https://packagist.org/packages/birhanu/laradocs)
 # Team Members
 - Ararsa Derese ETS0152/13
 - Birhanu Worku ETS0279/13
