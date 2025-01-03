@@ -1,10 +1,12 @@
 # LaraDocs | [View The Published Package](https://packagist.org/packages/birhanu/laradocs)
 # Team Members
-- Ararsa Derese ETS0152/13
-- Birhanu Worku ETS0279/13
-- Biruk Mesfin ETS0290/13
-- Bisrat Kebere ETS0306/13
-- Biyaol Mesay ETS0309/13
+| Name              | ID         |
+|-------------------|------------|
+| Ararsa Derese     | ETS0152/13 |
+| Birhanu Worku     | ETS0279/13 |
+| Biruk Mesfin      | ETS0290/13 |
+| Bisrat Kebere     | ETS0306/13 |
+| Biyaol Mesay      | ETS0309/13 |
 
 LaraDocs is a Laravel package that generates API documentation for your Laravel application. It provides both JSON and HTML formats for the documentation, making it easy to integrate and use.
 
